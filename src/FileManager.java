@@ -60,7 +60,7 @@ public class FileManager {
             System.out.println("WRONG path");
         }
 
-        return "idk";
+        return "username NOT found";
     }
     public boolean update(String id,String lineUpdate){
         boolean founded=false;

@@ -228,7 +228,8 @@ public class Main {
         }
     }
     static public void testerPage(Tester user) {
-        while(true){
+
+        while (true) {
             System.out.println("1-Define a bug");
             System.out.println("2-assign bug to developer");
             System.out.println("3-view all bugs");
@@ -236,80 +237,89 @@ public class Main {
             System.out.print("->");
             int userInput = input.nextInt();
             input.nextLine();
-            if(userInput==1){
-                System.out.print("Enter the bug name: ");
-                String bugName = input.nextLine();
-                System.out.println("Bug name: " + bugName);
+            if (userInput == 1) {
+                boolean bugState;
+                String bugName="",bugType,priority,projectName;
+                int bugLevel,bugDate;
+                boolean cnt=false;//to print this bug name is used after 1 loop
+                do{
+                    if(cnt){
+                        System.out.println("=======================================================");
+                        System.out.println("this bug name {"+bugName+"} is been used before");
+                        input.nextLine();
+                    }
+                    System.out.print("Enter the bug name: ");
+                    bugName = input.nextLine();
+                    System.out.println("Bug name: " + bugName);
 
-                System.out.print("Enter the bug type: ");
-                String bugType = input.nextLine();
-                System.out.println("\n"+"Bug name: " + bugName+"\n"+"Bug Type: " + bugType);
+                    System.out.print("Enter the bug type: ");
+                    bugType = input.nextLine();
+                    System.out.println("\n" + "Bug name: " + bugName + "\n" + "Bug Type: " + bugType);
 
-                System.out.print("Enter the priority: ");
-                String priority = input.nextLine();
-                System.out.println("\n"+"Bug name: " + bugName+"\n"+"Bug Type: " + bugType+"\n"+"priority: " +priority);
+                    System.out.print("Enter the priority: ");
+                    priority = input.nextLine();
+                    System.out.println("\n" + "Bug name: " + bugName + "\n" + "Bug Type: " + bugType + "\n" + "priority: " + priority);
 
-                System.out.print("Enter the bug level: ");
-                int bugLevel = input.nextInt();
-                System.out.println("\n"+"Bug name: " + bugName+"\n"+"Bug Type: " + bugType+"\n"+"priority: " +priority+"\n"
-                +"bug level: " +bugLevel);
-                input.nextLine();
-                System.out.print("Enter the project name: ");
-                String projectName = input.nextLine();
-                System.out.println("\n"+"Bug name: " + bugName+"\n"+"Bug Type: " + bugType+"\n"+"priority: " +priority
-                        +"bug level: " +bugLevel+"\n"+"project name: "+projectName);
-                System.out.print("Enter the bugDate: ");
-                int bugDate= input.nextInt();
-                System.out.println("\n"+"Bug name: " + bugName+"\n"+"Bug Type: " + bugType+"\n"+"priority: " +priority
-                        +"bug level: " +bugLevel+"\n"+"project name: "+projectName+"\n"+"Bug date : "+bugDate);
-                boolean bugState = false;
-                Bug bug = new Bug(bugName,bugType,bugLevel,bugDate,bugState);
-                FileManager file=new FileManager("data\\users\\bug.txt");
-                file.append(bug.toString()+"\n",true);
+                    System.out.print("Enter the bug level: ");
+                    bugLevel = input.nextInt();
+                    System.out.println("\n" + "Bug name: " + bugName + "\n" + "Bug Type: " + bugType + "\n" + "priority: " + priority + "\n"
+                            + "bug level: " + bugLevel);
+                    input.nextLine();
+                    System.out.print("Enter the project name: ");
+                    projectName = input.nextLine();
+                    System.out.println("\n" + "Bug name: " + bugName + "\n" + "Bug Type: " + bugType + "\n" + "priority: " + priority
+                            + "bug level: " + bugLevel + "\n" + "project name: " + projectName);
+                    System.out.print("Enter the bugDate: ");
+                    bugDate = input.nextInt();
+                    System.out.println("\n" + "Bug name: " + bugName + "\n" + "Bug Type: " + bugType + "\n" + "priority: " + priority
+                            + "bug level: " + bugLevel + "\n" + "project name: " + projectName + "\n" + "Bug date : " + bugDate);
+                    bugState = false;
+                    cnt=true;
+                }while(!user.defineBug(bugName, bugType, bugLevel, bugDate, bugState));
+                System.out.println("Done :)");
+
             }
-            else if(userInput==2){
+
+            else if (userInput == 2) {
                 System.out.print("enter bugId or bugName: ");
-                String bugName="";
-                int bugId=-1;
-                try{
+                String bugName = "";
+                int bugId = -1;
+                try {
                     bugId = input.nextInt();
                     input.nextLine();
 
-                }catch (Exception e){
-                    bugName=input.nextLine();
+                } catch (Exception e) {
+                    bugName = input.nextLine();
                 }
 
                 System.out.print("enter dev or devName: ");
-                String devName="";
-                int devId=-1;
-                try{
+                String devName = "";
+                int devId = -1;
+                try {
                     devId = input.nextInt();
                     input.nextLine();
 
-                }catch (Exception e){
-                    devName=input.nextLine();
+                } catch (Exception e) {
+                    devName = input.nextLine();
                 }
-                    if(user.asign(devId,bugId,devName,bugName))System.out.println("Done :)");
+                if (user.asign(devId, bugId, devName, bugName)) System.out.println("Done :)");
                 System.out.println("===============");
-            }
-            else if (userInput==3){
-                FileManager bugsFile=new FileManager("data//users//bug.txt");
-                String[] bugs =bugsFile.getData();
-                for(String bug:bugs){
+            } else if (userInput == 3) {
+                FileManager bugsFile = new FileManager("data//users//bug.txt");
+                String[] bugs = bugsFile.getData();
+                for (String bug : bugs) {
                     System.out.println("=======================================================");
-                    String[] data= bug.split("-");
-                    System.out.println("Bug Id: "+data[0]);
-                    System.out.println("Bug Name: "+data[1]);
-                    System.out.println("Bug type: "+data[2]);
-                    System.out.println("Project Name: "+data[3]);
-                    System.out.println("Bug date: "+data[4]);
-                    System.out.println("State: "+((data[5].equals("false"))?"NOT Solved yet":"Solved"));
+                    String[] data = bug.split("-");
+                    System.out.println("Bug Id: " + data[0]);
+                    System.out.println("Bug Name: " + data[1]);
+                    System.out.println("Bug type: " + data[2]);
+                    System.out.println("Project Name: " + data[3]);
+                    System.out.println("Bug date: " + data[4]);
+                    System.out.println("State: " + ((data[5].equals("false")) ? "NOT Solved yet" : "Solved"));
                     System.out.println("=======================================================");
                 }
-            }
-            else if (userInput==4)return;
+            } else if (userInput == 4) return;
         }
-
     }
     static public void developerPage(Developer user) {
         while(true){

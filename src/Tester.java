@@ -41,6 +41,15 @@ public class Tester extends Person {
         fileManager.update(usingDevId,dev.toString());
         return true;
     }
+    public boolean defineBug(String bugName, String bugType,int bugLevel,int bugDate,boolean bugState){
+        Bug bug = new Bug(bugName, bugType, bugLevel, bugDate, bugState);
+        FileManager file = new FileManager("data\\users\\bug.txt");
+        if(!file.searchByName(bug.getName()).equals("username NOT found")){
+            return false;
+        }
+        file.append(bug.toString() + "\n", true);
+        return true;
+    }
     public String toString() {
         return super.getId() + "-" + super.getName() + "-" + super.getPassword();
     }
