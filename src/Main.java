@@ -5,8 +5,8 @@ public class Main {
     static Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
         while(true) {
-            System.out.println("===============\nLogin to \n1-Admin\n2-Tester\n3-Developer\n0-Exit\n===============");
-            System.out.print("Choose 1 or 2 or 3 or 0: ");
+            System.out.println("===============\nLogin to \n1-Admin\n2-Tester\n3-Developer\n4-Project Manager\n0-Exit\n===============");
+            System.out.print("Choose 1 or 2 or 3 or 4 or 0: ");
             int ch = input.nextInt();
             input.nextLine();//to solve string issue in java
 
@@ -59,6 +59,24 @@ public class Main {
                 }
                 developerPage(user);
             }
+            else if (ch == 4){
+                ProjectManager user = new ProjectManager();
+
+                while (!user.loggedIn()) {
+                    System.out.print("user name: ");
+                    String name = input.nextLine();
+
+                    System.out.print("password: ");
+                    String password = input.nextLine();
+                    if (user.login(name, password)) {
+                        System.out.println("Welcome, " + name + " you have been logged in successfully.");
+                    } else {
+                        System.out.println("Wrong user name or password please try again.");
+                    }
+                }
+                ProjectManagerPage(user);
+
+             }
             else if(ch == 0){
                 System.out.println("Bye :)");
                 break;
@@ -466,5 +484,35 @@ public class Main {
             else if(userInput==3)return;
         }
     }
-    
+    static public void ProjectManagerPage(ProjectManager user){
+        while (true) {
+            System.out.println("1-View all closed bugs");
+            System.out.println("2-View all open bugs");
+            System.out.println("3-check tester performance");
+            System.out.println("4-check developer performance");
+            System.out.println("0-Exit");
+
+            int ch = input.nextInt();
+            input.nextLine();
+
+            if(ch == 1){
+
+                String[] res=user.vewClosedBugs();
+                for(String bug : res)
+                    System.out.println(bug);
+
+            }
+            if(ch == 2){
+                String[] res=user.veiwOpenBugs();
+                for(String bug : res)
+                    System.out.println(bug);
+
+            }
+            else if(ch == 0){
+                return;
+            }
+        }
+
+
+    }
 }
