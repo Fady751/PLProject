@@ -344,8 +344,8 @@ public class Main {
             input.nextLine();
             if (userInput == 1) {
                 boolean bugState;
-                String bugName="",bugType,priority,projectName;
-                int bugLevel,bugDate;
+                String bugName="",bugType,projectName;
+                int bugLevel,bugDate,priority;
                 boolean cnt=false;//to print this bug name is used after 1 loop
                 do{
                     if(cnt){
@@ -355,32 +355,25 @@ public class Main {
                     }
                     System.out.print("Enter the bug name: ");
                     bugName = input.nextLine();
-                    System.out.println("Bug name: " + bugName);
 
                     System.out.print("Enter the bug type: ");
                     bugType = input.nextLine();
-                    System.out.println("\n" + "Bug name: " + bugName + "\n" + "Bug Type: " + bugType);
 
                     System.out.print("Enter the priority: ");
-                    priority = input.nextLine();
-                    System.out.println("\n" + "Bug name: " + bugName + "\n" + "Bug Type: " + bugType + "\n" + "priority: " + priority);
+                    priority = input.nextInt();
 
                     System.out.print("Enter the bug level: ");
                     bugLevel = input.nextInt();
-                    System.out.println("\n" + "Bug name: " + bugName + "\n" + "Bug Type: " + bugType + "\n" + "priority: " + priority + "\n"
-                            + "bug level: " + bugLevel);
-                    input.nextLine();
+
                     System.out.print("Enter the project name: ");
                     projectName = input.nextLine();
-                    System.out.println("\n" + "Bug name: " + bugName + "\n" + "Bug Type: " + bugType + "\n" + "priority: " + priority
-                            + "bug level: " + bugLevel + "\n" + "project name: " + projectName);
+
                     System.out.print("Enter the bugDate: ");
                     bugDate = input.nextInt();
-                    System.out.println("\n" + "Bug name: " + bugName + "\n" + "Bug Type: " + bugType + "\n" + "priority: " + priority
-                            + "bug level: " + bugLevel + "\n" + "project name: " + projectName + "\n" + "Bug date : " + bugDate);
+
                     bugState = false;
                     cnt=true;
-                }while(!user.defineBug(bugName, bugType, bugLevel, bugDate, bugState));
+                }while(!user.defineBug(bugName, bugType, bugLevel, bugDate, bugState,projectName,priority));
                 System.out.println("Done :)");
 
             }
@@ -469,16 +462,29 @@ public class Main {
                 }
             }
             else if(userInput==2){
-                System.out.println("Bug Id: "+data[0]);
-                System.out.println("Project Name: "+data[3]);
-                System.out.println("did you finished your task:) ?");
-                System.out.print("yes||no: ");
-                String userinput=input.nextLine();
-                if(userinput.equals("yes")){
-                    if(user.changeStatus(data[0]))
-                        System.out.println("changed successfully");
-                    else
-                        System.out.println("error");
+                FileManager devs= new FileManager("data//users//developer.txt");
+                String[] dev=devs.searchById(user.getId()).split("-");
+
+                int bugId=Integer.parseInt(dev[3]);
+
+                FileManager bugsFile= new FileManager("data//users//bug.txt");
+                String[] bug=bugsFile.searchById(bugId).split("-");
+
+                if(bug[5].equals("false")) {
+                    System.out.println("Bug Id: " + data[0]);
+                    System.out.println("Project Name: " + data[3]);
+                    System.out.println("did you finished your task:) ?");
+                    System.out.print("yes||no: ");
+                    String userinput = input.nextLine();
+                    if (userinput.equals("yes")) {
+                        if (user.changeStatus(data[0]))
+                            System.out.println("changed successfully");
+                        else
+                            System.out.println("error");
+                    }
+                }
+                else{
+                    System.out.println("you don't have bugs :)");
                 }
             }
             else if(userInput==3)return;

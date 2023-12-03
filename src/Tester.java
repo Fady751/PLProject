@@ -59,8 +59,8 @@ public class Tester extends Person {
             return true;
         }
     }
-    public boolean defineBug(String bugName, String bugType,int bugLevel,int bugDate,boolean bugState){
-        Bug bug = new Bug(bugName, bugType, bugLevel, bugDate, bugState);
+    public boolean defineBug(String bugName, String bugType,int bugLevel,int bugDate,boolean bugState,String projectName,int priority){
+        Bug bug = new Bug(bugName, bugType, bugLevel, bugDate, bugState,projectName,priority);
         FileManager file = new FileManager("data\\users\\bug.txt");
         if(!file.searchByName(bug.getName()).equals("username NOT found")){
             return false;

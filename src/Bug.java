@@ -1,6 +1,6 @@
 public class Bug {
-    private String name, type;
-    private int level, date,id;
+    private String name, type,project;
+    private int level, date,id,priority;
     private boolean state;
 
     public Bug() {
@@ -10,7 +10,7 @@ public class Bug {
         this.date = 0;
         this.state = false;
     }
-    public Bug(String name, String type, int level, int date, boolean state) {
+    public Bug(String name, String type, int level, int date, boolean state,String project,int priority) {
         FileManager file = new FileManager("data\\bugID.txt");
         file.getData();
         String[] arr = file.getData();
@@ -23,6 +23,8 @@ public class Bug {
         this.level = level;
         this.date = date;
         this.state = state;
+        this.priority=priority;
+        this.project=project;
     }
 
     public String toString() {
