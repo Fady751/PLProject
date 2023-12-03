@@ -186,38 +186,32 @@ public class Main {
             input.nextLine();
             if (ch == 1) {
                 System.out.print("user id: ");
-                String id = input.nextLine();
-                id.trim();
+                String id = input.nextLine().trim();
 
                 while (!user.deleteAdmin(id)) {
                     System.out.println("wrong id");
                     System.out.print("user id: ");
-                    id = input.nextLine();
-                    id.trim();
+                    id = input.nextLine().trim();
                 }
                 System.out.println("User deleted successfully :)");
             } else if (ch == 2) {
                 System.out.print("user id: ");
-                String id = input.nextLine();
-                id.trim();
+                String id = input.nextLine().trim();
 
                 while (!user.deleteTester(id)) {
                     System.out.println("wrong id");
                     System.out.print("user id: ");
-                    id = input.nextLine();
-                    id.trim();
+                    id = input.nextLine().trim();
                 }
                 System.out.println("User deleted successfully :)");
             } else if (ch == 3) {
                 System.out.print("user id: ");
-                String id = input.nextLine();
-                id.trim();
+                String id = input.nextLine().trim();
 
                 while (!user.deleteDeveloper(id)) {
                     System.out.println("wrong id");
                     System.out.print("user id: ");
-                    id = input.nextLine();
-                    id.trim();
+                    id = input.nextLine().trim();
                 }
                 System.out.println("User deleted successfully :)");
             } else if (ch == 0) {
