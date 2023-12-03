@@ -74,6 +74,7 @@ public class Main {
             System.out.println("2-View all users");
             System.out.println("3-add new user");
             System.out.println("4-delete user");
+            System.out.println("5-update user");
             System.out.println("0-Exit");
 
             int ch = input.nextInt();
@@ -115,6 +116,9 @@ public class Main {
             }
             else if(ch == 4) {
                 deleteUser(user);
+            }
+            else if(ch == 5) {
+                updateUser(user);
             }
             else if(ch == 0) {
                 return;
@@ -214,6 +218,94 @@ public class Main {
                     id = input.nextLine().trim();
                 }
                 System.out.println("User deleted successfully :)");
+            } else if (ch == 0) {
+                return;
+            } else {
+                System.out.println("invalid input :(");
+            }
+        }
+    }
+    static void updateUser(Admin user) {
+        while (true){
+            System.out.println("1-update Admin");
+            System.out.println("2-update Tester");
+            System.out.println("3-update Developer");
+            System.out.println("0-Exit");
+            int ch = input.nextInt();
+            input.nextLine();
+
+            if (ch == 1) {
+                System.out.print("user id: ");
+                String id = input.nextLine();
+                id = id.trim();
+                System.out.print("user name: ");
+                String name = input.nextLine();
+                System.out.print("password: ");
+                String pass = input.nextLine();
+
+                int res = user.updateAdmin(id, name, pass);
+                while (res != 1) {
+                    if(res == -1) {
+                        System.out.println("name is used");
+                        System.out.print("user name: ");
+                        name = input.nextLine();
+                    } else {
+                        System.out.println("id not found");
+                        System.out.print("id: ");
+                        id = input.nextLine();
+                        id = id.trim();
+                    }
+                    res = user.updateAdmin(id, name, pass);
+                }
+                System.out.println("User updated successfully :)");
+            } else if (ch == 2) {
+                System.out.print("user id: ");
+                String id = input.nextLine();
+                id = id.trim();
+                System.out.print("user name: ");
+                String name = input.nextLine();
+                System.out.print("password: ");
+                String pass = input.nextLine();
+
+                int res = user.updateTester(id, name, pass);
+                while (res != 1) {
+                    if(res == -1) {
+                        System.out.println("name is used");
+                        System.out.print("user name: ");
+                        name = input.nextLine();
+                    } else {
+                        System.out.println("id not found");
+                        System.out.print("id: ");
+                        id = input.nextLine();
+                        id = id.trim();
+                    }
+                    res = user.updateTester(id, name, pass);
+                }
+                System.out.println("User updated successfully :)");
+            } else if (ch == 3) {
+                System.out.print("user id: ");
+                String id = input.nextLine();
+                id = id.trim();
+                System.out.print("user name: ");
+                String name = input.nextLine();
+                System.out.print("password: ");
+                String pass = input.nextLine();
+
+                int res = user.updateDeveloper(id, name, pass);
+                while (res != 1) {
+                    if(res == -1) {
+                        System.out.println("name is used");
+                        System.out.print("user name: ");
+                        name = input.nextLine();
+                    } else {
+                        System.out.println("id not found");
+                        System.out.print("id: ");
+                        id = input.nextLine();
+                        id = id.trim();
+                    }
+                    res = user.updateDeveloper(id, name, pass);
+                }
+                System.out.println("User updated successfully :)");
             } else if (ch == 0) {
                 return;
             } else {
