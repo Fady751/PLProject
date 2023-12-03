@@ -389,6 +389,9 @@ public class Main {
                     devName = input.nextLine();
                 }
                 if (user.asign(devId, bugId, devName, bugName)) System.out.println("Done :)");
+                else {
+                    System.out.println("this dev have a bug right now");
+                }
                 System.out.println("===============");
             } else if (userInput == 3) {
                 FileManager bugsFile = new FileManager("data//users//bug.txt");

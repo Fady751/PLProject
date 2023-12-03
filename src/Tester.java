@@ -26,6 +26,8 @@ public class Tester extends Person {
     }
     public boolean asign(int devId,int bugId,String devName,String bugName){
         FileManager fileManager= new FileManager("data\\users\\developer.txt");
+        FileManager bugs=new FileManager("data\\users\\bug.txt");
+
         String usingDevId,usingBugId;
         if(devId>=1)usingDevId= String.valueOf(devId);
         else{
@@ -33,13 +35,29 @@ public class Tester extends Person {
         }
         if (bugId>-1)usingBugId= String.valueOf(bugId);
         else {
-            FileManager bugs=new FileManager("data\\users\\bug.txt");
             usingBugId =bugs.searchByName(bugName);
         }
         devId=Integer.parseInt(usingDevId);
-        Developer dev=new Developer(fileManager.searchById(devId),Integer.parseInt(usingBugId));
-        fileManager.update(usingDevId,dev.toString());
-        return true;
+
+        // check if tha developer has a bug right now or not
+        String[] devInfo =fileManager.searchById(devId).split("-");
+        if(Integer.parseInt(devInfo[3])>0){
+            String[] bugInfo = bugs.searchById(Integer.parseInt(devInfo[3])).split("-");
+            if(bugInfo[5].equals("false"))
+                return false;
+            else{
+                Developer dev = new Developer(fileManager.searchById(devId),Integer.parseInt(usingBugId));
+                dev.setBugId(Integer.parseInt(usingBugId));
+                fileManager.update(usingDevId,dev.toString());
+                return true;
+            }
+        }
+        else{
+            Developer dev=new Developer(fileManager.searchById(devId),Integer.parseInt(usingBugId));
+            dev.setBugId(Integer.parseInt(usingBugId));
+            fileManager.update(usingDevId,dev.toString());
+            return true;
+        }
     }
     public boolean defineBug(String bugName, String bugType,int bugLevel,int bugDate,boolean bugState){
         Bug bug = new Bug(bugName, bugType, bugLevel, bugDate, bugState);

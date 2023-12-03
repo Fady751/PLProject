@@ -44,7 +44,16 @@ public class Developer extends Person {
     }
     public boolean changeStatus(String id){
         FileManager bugs = new FileManager("data//users//bug.txt");
-        return bugs.delete(id);
+        int intId = Integer.parseInt(id); // to use in buginfo
+        String[] bugInfo = bugs.searchById(intId).split("-");
+        bugInfo[5]="true";
+        String bugafterChange= bugInfo[0]+"-"+bugInfo[1]+"-"+bugInfo[2]+"-"+bugInfo[3]+"-"+bugInfo[4]+"-"+bugInfo[5];
+        if(bugs.update(id,bugafterChange))return true;
+        return false;
+
+    }
+    public void setBugId(int id){
+        this.bugId=id;
     }
     public int getBugId(){
         return this.bugId;
