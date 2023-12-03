@@ -364,6 +364,7 @@ public class Main {
 
                     System.out.print("Enter the bug level: ");
                     bugLevel = input.nextInt();
+                    input.nextLine();
 
                     System.out.print("Enter the project name: ");
                     projectName = input.nextLine();

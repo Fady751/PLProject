@@ -22,9 +22,9 @@ public class Developer extends Person {
         this.completedBugs=0;
 
     }
-    public Developer(int id, String name, String password) {
+    public Developer(int id, String name, String password,int completedBugs) {
         super(id, name, password, "Developer");
-        this.completedBugs=0;
+        this.completedBugs=completedBugs;
 
     }
     public boolean login(String name, String password) {

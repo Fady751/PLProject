@@ -1,24 +1,29 @@
 public class Tester extends Person {
-
+    private int foundedBugs;
     public Tester() {
+
         super();
+        this.foundedBugs=0;
     }
     public Tester(String name, String password) {
         super(name, password, "Tester");
+        this.foundedBugs=0;
     }
-    public Tester(int id, String name, String password) {
+    public Tester(int id, String name, String password,int foundedBugs) {
         super(id, name, password, "Tester");
+        this.foundedBugs=foundedBugs;
     }
     public boolean login(String name, String password) {
         FileManager fw = new FileManager("data\\users\\tester.txt");
         String[] arr = fw.getData();
         for (String s : arr) {
             String[] user = s.split("-");
-            if (user.length == 3 && user[1].equals(name) && user[2].equals(password)) {
+            if (user[1].equals(name) && user[2].equals(password)) {
                 super.setId(Integer.parseInt(user[0]));
                 super.setName(name);
                 super.setPassword(password);
                 super.setType("Tester");
+                this.foundedBugs=Integer.parseInt(user[3]);
                 return true;
             }
         }
@@ -65,6 +70,11 @@ public class Tester extends Person {
         if(!file.searchByName(bug.getName()).equals("username NOT found")){
             return false;
         }
+        this.foundedBugs++;
+        FileManager tester= new FileManager("data\\users\\tester.txt");
+        String[] testerInfo=tester.searchById(this.getId()).split("-");
+        testerInfo[3]=String.valueOf(this.foundedBugs);
+        tester.update(String.valueOf(this.getId()),this.toString());
         file.append(bug.toString() + "\n", true);
         return true;
     }
@@ -77,12 +87,12 @@ public class Tester extends Person {
         Developer[] users = new Developer[arr.length];
         for (int i = 0; i < arr.length; i++) {
             String[] user = arr[i].split("-"); //id-name-pass
-            users[i] = new Developer(Integer.parseInt(user[0]), user[1], user[2]);
+            users[i] = new Developer(Integer.parseInt(user[0]), user[1], user[2],Integer.parseInt(user[3]));
         }
         return users;
     }
     public String toString() {
-        return super.getId() + "-" + super.getName() + "-" + super.getPassword();
+        return super.getId() + "-" + super.getName() + "-" + super.getPassword() + "-" +this.foundedBugs;
     }
 }
 

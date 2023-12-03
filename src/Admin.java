@@ -54,7 +54,7 @@ public class Admin extends Person {
         Tester[] users = new Tester[arr.length];
         for (int i = 0; i < arr.length; i++) {
             String[] user = arr[i].split("-"); //id-name-pass
-            users[i] = new Tester(Integer.parseInt(user[0]), user[1], user[2]);
+            users[i] = new Tester(Integer.parseInt(user[0]), user[1], user[2],0);
         }
         return users;
     }
@@ -67,7 +67,7 @@ public class Admin extends Person {
         Developer[] users = new Developer[arr.length];
         for (int i = 0; i < arr.length; i++) {
             String[] user = arr[i].split("-"); //id-name-pass
-            users[i] = new Developer(Integer.parseInt(user[0]), user[1], user[2]);
+            users[i] = new Developer(Integer.parseInt(user[0]), user[1], user[2],0);
         }
         return users;
     }
@@ -158,7 +158,7 @@ public class Admin extends Person {
             return 0;
         }
 
-        Tester user = new Tester(Integer.parseInt(id), name, password);
+        Tester user = new Tester(Integer.parseInt(id), name, password,0);
         fw.update(id, user.toString());
         return 1;
     }
@@ -180,7 +180,7 @@ public class Admin extends Person {
             return 0;
         }
 
-        Developer user = new Developer(Integer.parseInt(id), name, password);
+        Developer user = new Developer(Integer.parseInt(id), name, password,0);
         fw.update(id, user.toString());
         return 1;
     }
