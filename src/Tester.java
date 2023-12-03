@@ -68,6 +68,19 @@ public class Tester extends Person {
         file.append(bug.toString() + "\n", true);
         return true;
     }
+
+    public Developer[] getAllDevelopers() {
+        FileManager fw = new FileManager("data\\users\\developer.txt");
+        String[] arr = fw.getData();
+        if (arr[0].isEmpty())
+            return new Developer[0];
+        Developer[] users = new Developer[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            String[] user = arr[i].split("-"); //id-name-pass
+            users[i] = new Developer(Integer.parseInt(user[0]), user[1], user[2]);
+        }
+        return users;
+    }
     public String toString() {
         return super.getId() + "-" + super.getName() + "-" + super.getPassword();
     }

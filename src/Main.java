@@ -319,7 +319,8 @@ public class Main {
             System.out.println("1-Define a bug");
             System.out.println("2-assign bug to developer");
             System.out.println("3-view all bugs");
-            System.out.println("4-Exit");
+            System.out.println("4-view all developers");
+            System.out.println("0-Exit");
             System.out.print("->");
             int userInput = input.nextInt();
             input.nextLine();
@@ -407,7 +408,20 @@ public class Main {
                     System.out.println("State: " + ((data[5].equals("false")) ? "NOT Solved yet" : "Solved"));
                     System.out.println("=======================================================");
                 }
-            } else if (userInput == 4) return;
+            }
+            else if (userInput == 4) {
+                Developer[] developers = user.getAllDevelopers();
+
+                System.out.println("id  |  name  |  Type");
+
+                for(Developer u : developers) {
+                    System.out.println(u.getId() + "   |  " + u.getName() + "  |  " + u.getType());
+                }
+                System.out.println("=====================================");
+            }
+            else if (userInput == 0) {
+                return;
+            }
         }
     }
     static public void developerPage(Developer user) {
