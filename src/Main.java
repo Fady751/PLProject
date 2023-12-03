@@ -238,20 +238,20 @@ public class Main {
                 System.out.print("user id: ");
                 String id = input.nextLine();
                 id = id.trim();
-                System.out.print("user name: ");
+                System.out.print("new user name: ");
                 String name = input.nextLine();
-                System.out.print("password: ");
+                System.out.print("new password: ");
                 String pass = input.nextLine();
 
                 int res = user.updateAdmin(id, name, pass);
                 while (res != 1) {
                     if(res == -1) {
                         System.out.println("name is used");
-                        System.out.print("user name: ");
+                        System.out.print("new user name: ");
                         name = input.nextLine();
                     } else {
                         System.out.println("id not found");
-                        System.out.print("id: ");
+                        System.out.print("user id: ");
                         id = input.nextLine();
                         id = id.trim();
                     }
@@ -262,16 +262,16 @@ public class Main {
                 System.out.print("user id: ");
                 String id = input.nextLine();
                 id = id.trim();
-                System.out.print("user name: ");
+                System.out.print("new user name: ");
                 String name = input.nextLine();
-                System.out.print("password: ");
+                System.out.print("new password: ");
                 String pass = input.nextLine();
 
                 int res = user.updateTester(id, name, pass);
                 while (res != 1) {
                     if(res == -1) {
                         System.out.println("name is used");
-                        System.out.print("user name: ");
+                        System.out.print("new user name: ");
                         name = input.nextLine();
                     } else {
                         System.out.println("id not found");
@@ -286,16 +286,16 @@ public class Main {
                 System.out.print("user id: ");
                 String id = input.nextLine();
                 id = id.trim();
-                System.out.print("user name: ");
+                System.out.print("new user name: ");
                 String name = input.nextLine();
-                System.out.print("password: ");
+                System.out.print("new password: ");
                 String pass = input.nextLine();
 
                 int res = user.updateDeveloper(id, name, pass);
                 while (res != 1) {
                     if(res == -1) {
                         System.out.println("name is used");
-                        System.out.print("user name: ");
+                        System.out.print("new user name: ");
                         name = input.nextLine();
                     } else {
                         System.out.println("id not found");
