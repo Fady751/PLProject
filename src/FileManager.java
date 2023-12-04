@@ -5,20 +5,20 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class FileManager {
-    private String fileName;
+
     File file;
     FileManager(String fileName) {
-        this.fileName = fileName;
         file = new File(fileName);
         openFile();
     }
-    private boolean openFile() {
+    private int openFile() {
         try {
-            file.createNewFile();
+            if(file.createNewFile())
+                return 1;
+            return 0;
         } catch (IOException e) {
-            return false;
+            return -1;
         }
-        return true;
     }
     public String[] getData() {
         String[] res = new String[0];
@@ -51,58 +51,58 @@ public class FileManager {
             String line;
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
-                String[] linecon = line.split("-");
-                if (linecon[1].toLowerCase().equals(name)) {
-                    return linecon[0];
+                String[] lineCon = line.split("-");
+                if (lineCon[1].toLowerCase().equals(name)) {
+                    return lineCon[0];
                 }
             }
         } catch (IOException e) {
-            System.out.println("WRONG path");
+            System.out.println(e.getMessage());
         }
 
         return "username NOT found";
     }
-    public boolean update(String id,String lineUpdate){
-        boolean founded=false;
+    public boolean update(String id, String lineUpdate){
+        boolean founded = false;
         try {
             Scanner scanner = new Scanner(this.file);
-            String res ="";
+            String res = "";
             String line;
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
-                String[] linecon = line.split("-");
-                if (linecon[0].equals(id)) {
-                    res+=lineUpdate+"\n";
-                    founded=true;
+                String[] lineCon = line.split("-");
+                if (lineCon[0].equals(id)) {
+                    res += lineUpdate+"\n";
+                    founded = true;
                     continue;
                 }
-                res+=line+"\n";
+                res += line+"\n";
             }
             append(res,false);
         } catch (IOException e) {
-            System.out.println("WRONG path");
+            System.out.println(e.getMessage());
         }
 
         return founded;
     }
     public boolean delete(String id){
-        boolean done=false;
+        boolean done = false;
         try {
             Scanner scanner = new Scanner(this.file);
-            String res ="";
+            String res = "";
             String line;
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
-                String[] linecon = line.split("-");
-                if (linecon[0].equals(id)) {
-                    done=true;
+                String[] lineCon = line.split("-");
+                if (lineCon[0].equals(id)) {
+                    done = true;
                     continue;
                 }
-                res+=line+"\n";
+                res += line+"\n";
             }
             append(res,false);
         } catch (IOException e) {
-            System.out.println("WRONG path");
+            System.out.println(e.getMessage());
         }
 
         return done;
@@ -114,14 +114,13 @@ public class FileManager {
             String line;
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
-                String[] linecon = line.split("-");
-                int lineId = Integer.parseInt(linecon[0]);
-                if (lineId == id) {
+                String[] lineCon = line.split("-");
+                if (Integer.parseInt(lineCon[0]) == id) {
                     return line;
                 }
             }
         } catch (IOException e) {
-            System.out.println("WRONG path");
+            System.out.println(e.getMessage());
         }
 
         return "NOT FOUND\n";

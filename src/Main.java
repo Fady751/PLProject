@@ -1,4 +1,3 @@
-import javax.swing.table.TableRowSorter;
 import java.util.Scanner;
 
 public class Main {
@@ -7,10 +6,9 @@ public class Main {
         while(true) {
             System.out.println("===============\nLogin to \n1-Admin\n2-Tester\n3-Developer\n4-Project Manager\n0-Exit\n===============");
             System.out.print("Choose 1 or 2 or 3 or 4 or 0: ");
-            int ch = input.nextInt();
-            input.nextLine();//to solve string issue in java
+            String ch = input.nextLine().trim();
 
-            if (ch == 1) {
+            if (ch.equals("1")) {
                 Admin user = new Admin();
                 while (!user.loggedIn()) {
                     System.out.print("user name: ");
@@ -25,7 +23,7 @@ public class Main {
                 }
                 adminPage(user);
             }
-            else if (ch == 2) {
+            else if (ch.equals("2")) {
                 Tester user = new Tester();
 
                 while (!user.loggedIn()) {
@@ -42,7 +40,7 @@ public class Main {
                 }
                    testerPage(user);
             }
-            else if (ch == 3) {
+            else if (ch.equals("3")) {
                 Developer user = new Developer();
 
                 while (!user.loggedIn()) {
@@ -59,7 +57,7 @@ public class Main {
                 }
                 developerPage(user);
             }
-            else if (ch == 4){
+            else if (ch.equals("4")){
                 ProjectManager user = new ProjectManager();
 
                 while (!user.loggedIn()) {
@@ -77,7 +75,7 @@ public class Main {
                 ProjectManagerPage(user);
 
              }
-            else if(ch == 0){
+            else if(ch.equals("0")){
                 System.out.println("Bye :)");
                 break;
             }
@@ -95,25 +93,34 @@ public class Main {
             System.out.println("5-update user");
             System.out.println("0-Exit");
 
-            int ch = input.nextInt();
-            input.nextLine();//to solve string issue in java
+            String ch = input.nextLine();
+            ch = ch.trim();
 
-            if(ch == 1) {
-                FileManager bugsFile=new FileManager("data//users//bug.txt");
+            if(ch.equals("1")) {
+                FileManager bugsFile = new FileManager("data//users//bug.txt");
                 String[] bugs =bugsFile.getData();
                 for(String bug:bugs) {
-                    System.out.println("=======================================================");
+                    /* bug.txt file
+                        0 - 1  - 2  - 3   - 4  - 5   - 6     - 7
+                        id-name-type-level-date-state-project-priority
+                        ...
+                     */
                     String[] data = bug.split("-");
+                    if(data.length < 8)
+                        continue;
+                    System.out.println("=======================================================");
                     System.out.println("Bug Id: " + data[0]);
                     System.out.println("Bug Name: " + data[1]);
                     System.out.println("Bug type: " + data[2]);
-                    System.out.println("Project Name: " + data[3]);
+                    System.out.println("Bug level: " + data[3]);
                     System.out.println("Bug date: " + data[4]);
                     System.out.println("State: " + ((data[5].equals("false")) ? "NOT Solved yet" : "Solved"));
+                    System.out.println("Bug project: " + data[4]);
+                    System.out.println("Bug priority: " + data[4]);
                     System.out.println("=======================================================");
                 }
             }
-            else if(ch == 2) {
+            else if(ch.equals("2")) {
                 Admin[] ad = user.getAllAdmins();
                 Tester[] te = user.getAllTesters();
                 Developer[] de = user.getAllDevelopers();
@@ -129,16 +136,16 @@ public class Main {
                     System.out.println(u.getId() + "   |  " + u.getName() + "  |  " + u.getType());
                 }
             }
-            else if(ch == 3) {
+            else if(ch.equals("3")) {
                 addUser(user);
             }
-            else if(ch == 4) {
+            else if(ch.equals("4")) {
                 deleteUser(user);
             }
-            else if(ch == 5) {
+            else if(ch.equals("5")) {
                 updateUser(user);
             }
-            else if(ch == 0) {
+            else if(ch.equals("0")) {
                 return;
             }
             else {
@@ -152,10 +159,9 @@ public class Main {
             System.out.println("2-add new Tester");
             System.out.println("3-add new Developer");
             System.out.println("0-Exit");
-            int ch = input.nextInt();
-            input.nextLine();
+            String ch = input.nextLine().trim();
 
-            if (ch == 1) {
+            if (ch.equals("1")) {
                 System.out.print("user name: ");
                 String name = input.nextLine();
                 System.out.print("password: ");
@@ -167,7 +173,8 @@ public class Main {
                     name = input.nextLine();
                 }
                 System.out.println("User added successfully :)");
-            } else if (ch == 2) {
+            }
+            else if (ch.equals("2")) {
                 System.out.print("user name: ");
                 String name = input.nextLine();
                 System.out.print("password: ");
@@ -179,7 +186,8 @@ public class Main {
                     name = input.nextLine();
                 }
                 System.out.println("User added successfully :)");
-            } else if (ch == 3) {
+            }
+            else if (ch.equals("3")) {
                 System.out.print("user name: ");
                 String name = input.nextLine();
                 System.out.print("password: ");
@@ -191,9 +199,11 @@ public class Main {
                     name = input.nextLine();
                 }
                 System.out.println("User added successfully :)");
-            } else if (ch == 0) {
+            }
+            else if (ch.equals("0")) {
                 return;
-            } else {
+            }
+            else {
                 System.out.println("invalid input :(");
             }
         }
@@ -204,9 +214,8 @@ public class Main {
             System.out.println("2-delete Tester");
             System.out.println("3-delete Developer");
             System.out.println("0-Exit");
-            int ch = input.nextInt();
-            input.nextLine();
-            if (ch == 1) {
+            String ch = input.nextLine().trim();
+            if (ch.equals("1")) {
                 System.out.print("user id: ");
                 String id = input.nextLine().trim();
 
@@ -216,7 +225,8 @@ public class Main {
                     id = input.nextLine().trim();
                 }
                 System.out.println("User deleted successfully :)");
-            } else if (ch == 2) {
+            }
+            else if (ch.equals("2")) {
                 System.out.print("user id: ");
                 String id = input.nextLine().trim();
 
@@ -226,7 +236,8 @@ public class Main {
                     id = input.nextLine().trim();
                 }
                 System.out.println("User deleted successfully :)");
-            } else if (ch == 3) {
+            }
+            else if (ch.equals("3")) {
                 System.out.print("user id: ");
                 String id = input.nextLine().trim();
 
@@ -236,9 +247,11 @@ public class Main {
                     id = input.nextLine().trim();
                 }
                 System.out.println("User deleted successfully :)");
-            } else if (ch == 0) {
+            }
+            else if (ch.equals("0")) {
                 return;
-            } else {
+            }
+            else {
                 System.out.println("invalid input :(");
             }
         }
@@ -249,10 +262,9 @@ public class Main {
             System.out.println("2-update Tester");
             System.out.println("3-update Developer");
             System.out.println("0-Exit");
-            int ch = input.nextInt();
-            input.nextLine();
+            String ch = input.nextLine().trim();
 
-            if (ch == 1) {
+            if (ch.equals("1")) {
                 System.out.print("user id: ");
                 String id = input.nextLine();
                 id = id.trim();
@@ -276,7 +288,8 @@ public class Main {
                     res = user.updateAdmin(id, name, pass);
                 }
                 System.out.println("User updated successfully :)");
-            } else if (ch == 2) {
+            }
+            else if (ch.equals("2")) {
                 System.out.print("user id: ");
                 String id = input.nextLine();
                 id = id.trim();
@@ -300,7 +313,8 @@ public class Main {
                     res = user.updateTester(id, name, pass);
                 }
                 System.out.println("User updated successfully :)");
-            } else if (ch == 3) {
+            }
+            else if (ch.equals("3")) {
                 System.out.print("user id: ");
                 String id = input.nextLine();
                 id = id.trim();
@@ -324,9 +338,11 @@ public class Main {
                     res = user.updateDeveloper(id, name, pass);
                 }
                 System.out.println("User updated successfully :)");
-            } else if (ch == 0) {
+            }
+            else if (ch.equals("0")) {
                 return;
-            } else {
+            }
+            else {
                 System.out.println("invalid input :(");
             }
         }
@@ -340,18 +356,17 @@ public class Main {
             System.out.println("4-view all developers");
             System.out.println("0-Exit");
             System.out.print("->");
-            int userInput = input.nextInt();
-            input.nextLine();
-            if (userInput == 1) {
+            String userInput = input.nextLine().trim();
+
+            if (userInput.equals("1")) {
                 boolean bugState;
-                String bugName="",bugType,projectName;
-                int bugLevel,bugDate,priority;
-                boolean cnt=false;//to print this bug name is used after 1 loop
+                String bugName = "", bugType, projectName;
+                int bugLevel , bugDate, priority;
+                boolean cnt = false;//to print this bug name is used after 1 loop
                 do{
                     if(cnt){
                         System.out.println("=======================================================");
-                        System.out.println("this bug name {"+bugName+"} is been used before");
-                        input.nextLine();
+                        System.out.println("this bug name {" + bugName + "} is been used before");
                     }
                     System.out.print("Enter the bug name: ");
                     bugName = input.nextLine();
@@ -371,15 +386,15 @@ public class Main {
 
                     System.out.print("Enter the bugDate: ");
                     bugDate = input.nextInt();
+                    input.nextLine();
 
                     bugState = false;
-                    cnt=true;
-                }while(!user.defineBug(bugName, bugType, bugLevel, bugDate, bugState,projectName,priority));
+                    cnt = true;
+                } while(!user.defineBug(bugName, bugType, bugLevel, bugDate, bugState,projectName,priority));
                 System.out.println("Done :)");
 
             }
-
-            else if (userInput == 2) {
+            else if (userInput.equals("2")) {
                 System.out.print("enter bugId or bugName: ");
                 String bugName = "";
                 int bugId = -1;
@@ -401,27 +416,39 @@ public class Main {
                 } catch (Exception e) {
                     devName = input.nextLine();
                 }
-                if (user.asign(devId, bugId, devName, bugName)) System.out.println("Done :)");
+                if (user.assign(devId, bugId, devName, bugName)) {
+                    System.out.println("Done :)");
+                }
                 else {
                     System.out.println("this dev have a bug right now");
                 }
                 System.out.println("===============");
-            } else if (userInput == 3) {
+            }
+            else if (userInput.equals("3")) {
                 FileManager bugsFile = new FileManager("data//users//bug.txt");
-                String[] bugs = bugsFile.getData();
-                for (String bug : bugs) {
-                    System.out.println("=======================================================");
+                String[] bugs =bugsFile.getData();
+                for(String bug:bugs) {
+                    /* bug.txt file
+                        0 - 1  - 2  - 3   - 4  - 5   - 6     - 7
+                        id-name-type-level-date-state-project-priority
+                        ...
+                     */
                     String[] data = bug.split("-");
+                    if(data.length < 8)
+                        continue;
+                    System.out.println("=======================================================");
                     System.out.println("Bug Id: " + data[0]);
                     System.out.println("Bug Name: " + data[1]);
                     System.out.println("Bug type: " + data[2]);
-                    System.out.println("Project Name: " + data[3]);
+                    System.out.println("Bug level: " + data[3]);
                     System.out.println("Bug date: " + data[4]);
                     System.out.println("State: " + ((data[5].equals("false")) ? "NOT Solved yet" : "Solved"));
+                    System.out.println("Bug project: " + data[4]);
+                    System.out.println("Bug priority: " + data[4]);
                     System.out.println("=======================================================");
                 }
             }
-            else if (userInput == 4) {
+            else if (userInput.equals("4")) {
                 Developer[] developers = user.getAllDevelopers();
 
                 System.out.println("id  |  name  |  Type");
@@ -431,8 +458,11 @@ public class Main {
                 }
                 System.out.println("=====================================");
             }
-            else if (userInput == 0) {
+            else if (userInput.equals("0")) {
                 return;
+            }
+            else {
+                System.out.println("invalid Input :(");
             }
         }
     }
@@ -440,29 +470,30 @@ public class Main {
         while(true){
             System.out.println("1-view assigned bugs");
             System.out.println("2-change status of bug");
-            System.out.println("3-Exit");
+            System.out.println("0-Exit");
             System.out.print("->");
-            int userInput = input.nextInt();
-            input.nextLine();
+            String userInput = input.nextLine().trim();
 
             FileManager bugs=new FileManager("data//users//bug.txt");
             String bugLine=bugs.searchById(user.getBugId());
             String[] data= bugLine.split("-");
-            if(userInput==1){
+            if(userInput.equals("1")){
                 if(user.getBugId()==0)System.out.println("enjoy NO BUGS ASSIGNED yet :)");
                 else{
                     System.out.println("=======================================================");
-                    System.out.println("Bug Id: "+data[0]);
-                    System.out.println("Bug Name: "+data[1]);
-                    System.out.println("Bug type: "+data[2]);
-                    System.out.println("Project Name: "+data[3]);
-                    System.out.println("Bug date: "+data[4]);
-                    System.out.println("State: "+((data[5].equals("false"))?"NOT Solved yet":"Solved"));
+                    System.out.println("Bug Id: " + data[0]);
+                    System.out.println("Bug Name: " + data[1]);
+                    System.out.println("Bug type: " + data[2]);
+                    System.out.println("Bug level: " + data[3]);
+                    System.out.println("Bug date: " + data[4]);
+                    System.out.println("State: " + ((data[5].equals("false")) ? "NOT Solved yet" : "Solved"));
+                    System.out.println("Bug project: " + data[4]);
+                    System.out.println("Bug priority: " + data[4]);
                     System.out.println("=======================================================");
 
                 }
             }
-            else if(userInput==2){
+            else if(userInput.equals("2")){
                 FileManager devs= new FileManager("data//users//developer.txt");
                 String[] dev=devs.searchById(user.getId()).split("-");
 
@@ -488,7 +519,12 @@ public class Main {
                     System.out.println("you don't have bugs :)");
                 }
             }
-            else if(userInput==3)return;
+            else if(userInput.equals("0")) {
+                return;
+            }
+            else {
+                System.out.println("invalid input :(");
+            }
         }
     }
     static public void ProjectManagerPage(ProjectManager user){
@@ -499,27 +535,25 @@ public class Main {
             System.out.println("4-check developer performance");
             System.out.println("0-Exit");
 
-            int ch = input.nextInt();
-            input.nextLine();
+            String ch = input.nextLine().trim();
 
-            if(ch == 1){
-
-                String[] res=user.vewClosedBugs();
+            if(ch.equals("1")){
+                String[] res = user.vewClosedBugs();
                 for(String bug : res)
                     System.out.println(bug);
 
             }
-            if(ch == 2){
-                String[] res=user.veiwOpenBugs();
+            else if(ch.equals("2")){
+                String[] res = user.viewOpenBugs();
                 for(String bug : res)
                     System.out.println(bug);
 
             }
-            if(ch == 3){
-                Scanner input= new Scanner(System.in);
+            else if(ch.equals("3")){
                 System.out.print("Enter the id of the tester: ");
-                int id=input.nextInt();
-                String res = user.checkTesterperformance(id);
+                int id = input.nextInt();
+                input.nextLine();
+                String res = user.checkTesterPerformance(id);
                 if(res.equals("this id was not found")){
                     System.out.println("this id was not found");
                 }
@@ -527,11 +561,11 @@ public class Main {
                     System.out.println("this tester discoverd " + res + "  bugs");
                 }
             }
-            if(ch == 4){
-                Scanner input= new Scanner(System.in);
+            else if(ch.equals("4")){
                 System.out.print("Enter the id of the developer: ");
-                int id=input.nextInt();
-                String res = user.checkDeveloperperformance(id);
+                int id = input.nextInt();
+                input.nextLine();
+                String res = user.checkDeveloperPerformance(id);
                 if(res.equals("this id was not found")){
                     System.out.println("this id was not found");
                 }
@@ -544,20 +578,17 @@ public class Main {
                     if (fixedBugs >= assigned_Bugs) {
                         System.out.println("this developer fixed " + fixedBugs + " he deserves a raise");
                     }
-
-                    if (fixedBugs < assigned_Bugs) {
+                    else {
                         System.out.println("this developer only fixed " + fixedBugs + " from the assigned " + assigned_Bugs + " he should be fired");
                     }
                 }
-
-
             }
-
-            else if(ch == 0){
+            else if(ch.equals("0")){
                 return;
             }
+            else {
+                System.out.println("invalid input :(");
+            }
         }
-
-
     }
 }

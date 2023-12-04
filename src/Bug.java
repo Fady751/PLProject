@@ -1,34 +1,37 @@
 public class Bug {
-    private String name, type,project;
-    private int level, date,id,priority;
+    private String name, type, project;
+    private int level, date, id, priority;
     private boolean state;
 
     public Bug() {
         this.name = "";
         this.type = "";
+        this.project = "";
+        this.id = 0;
         this.level = 0;
         this.date = 0;
+        this.priority = 0;
         this.state = false;
     }
-    public Bug(String name, String type, int level, int date, boolean state,String project,int priority) {
+    public Bug(String name, String type, int level, int date, boolean state, String project, int priority) {
         FileManager file = new FileManager("data\\bugID.txt");
         file.getData();
         String[] arr = file.getData();
         int cnt = Integer.parseInt(arr[0]);
-        cnt=cnt+1;
-        file.append(String.valueOf(cnt),false);
-        this.id=cnt;
+        this.id = cnt;
         this.name = name;
         this.type = type;
         this.level = level;
         this.date = date;
         this.state = state;
-        this.priority=priority;
-        this.project=project;
+        this.project = project;
+        this.priority = priority;
+        cnt += 1;
+        file.append(String.valueOf(cnt),false);
     }
 
     public String toString() {
-        return this.id+"-"+ this.name + "-" + this.type + "-" + this.level + "-" + this.date + "-" + this.state;
+        return this.id + "-" + this.name + "-" + this.type + "-" + this.level + "-" + this.date + "-" + this.state + "-" + this.project + "-" + this.priority;
     }
     public String getName() {
         return name;
@@ -62,6 +65,6 @@ public class Bug {
     }
 }
 /* bug.txt file
-    name-type-level-date-state
+    id-name-type-level-date-state-project-priority
     ...
  */

@@ -17,7 +17,7 @@ public class Admin extends Person {
         String[] arr = fw.getData();
         for (String s : arr) {
             String[] user = s.split("-");
-            if (user.length == 3 && user[1].equals(name) && user[2].equals(password)) {
+            if (2 < user.length && user[1].equals(name) && user[2].equals(password)) {
                 super.setId(Integer.parseInt(user[0]));
                 super.setName(name);
                 super.setPassword(password);
@@ -78,7 +78,7 @@ public class Admin extends Person {
         String[] arr = fw.getData();
         for (String s : arr) {
             String[] user = s.split("-");
-            if (user.length == 3 && user[1].equals(name)) {
+            if (1 < user.length && user[1].equals(name)) {
                 return false;
             }
         }
@@ -94,7 +94,7 @@ public class Admin extends Person {
         String[] arr = fw.getData();
         for (String s : arr) {
             String[] user = s.split("-");
-            if (user.length == 3 && user[1].equals(name)) {
+            if (1 < user.length && user[1].equals(name)) {
                 return false;
             }
         }
@@ -110,7 +110,7 @@ public class Admin extends Person {
         String[] arr = fw.getData();
         for (String s : arr) {
             String[] user = s.split("-");
-            if (user[1].equals(name)) {
+            if (1 < user.length && user[1].equals(name)) {
                 return false;
             }
         }

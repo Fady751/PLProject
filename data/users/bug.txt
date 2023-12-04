@@ -1,12 +1,3 @@
-2-hh-1-1-1-true
-3-bug1-adk-9-0-true
-4-haha-1-1-1-false
-6-haaaaaaaaaahh-1-1-1-true
-7-hheeeeeeeeeeeh-1-1-1-false
-8-hhiaiaiaiaaiaiaih-1-1-1-true
-9-h55555555555555hh-1-1-1-false
-10-hkkkkkkkkkkkkkkkhh-1-1-1-false
-11-hfsssssssssssssssssshh-1-1-1-true
-7-hhhhhhhhhhhhhhhhhhhhhhhhhhh-1-3-4-false
-8-hhhhhhhhhhhhhhhhhhhhh-1-3-4-false
-9-1-1-1-1-false
+1-bug1-hard-1-1-true-Pl2-5
+2-bug2-hard-1-2-true-PL3-1
+3-bug3-hard-1-1-false-PL1-1

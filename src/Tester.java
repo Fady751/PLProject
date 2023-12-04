@@ -7,46 +7,52 @@ public class Tester extends Person {
     }
     public Tester(String name, String password) {
         super(name, password, "Tester");
-        this.foundedBugs=0;
+        this.foundedBugs = 0;
     }
-    public Tester(int id, String name, String password,int foundedBugs) {
+    public Tester(int id, String name, String password, int foundedBugs) {
         super(id, name, password, "Tester");
-        this.foundedBugs=foundedBugs;
+        this.foundedBugs = foundedBugs;
     }
     public boolean login(String name, String password) {
         FileManager fw = new FileManager("data\\users\\tester.txt");
         String[] arr = fw.getData();
         for (String s : arr) {
             String[] user = s.split("-");
-            if (user[1].equals(name) && user[2].equals(password)) {
+            if (3 < user.length && user[1].equals(name) && user[2].equals(password)) {
                 super.setId(Integer.parseInt(user[0]));
                 super.setName(name);
                 super.setPassword(password);
                 super.setType("Tester");
-                this.foundedBugs=Integer.parseInt(user[3]);
+                this.foundedBugs = Integer.parseInt(user[3]);
                 return true;
             }
         }
         return false;
     }
-    public boolean asign(int devId,int bugId,String devName,String bugName){
+    public boolean assign(int devId, int bugId, String devName, String bugName){
         FileManager fileManager= new FileManager("data\\users\\developer.txt");
-        FileManager bugs=new FileManager("data\\users\\bug.txt");
+        FileManager bugs = new FileManager("data\\users\\bug.txt");
 
-        String usingDevId,usingBugId;
-        if(devId>=1)usingDevId= String.valueOf(devId);
+        String usingDevId, usingBugId;
+        if(devId >= 1) {
+            usingDevId = String.valueOf(devId);
+        }
         else{
             usingDevId= fileManager.searchByName(devName);
         }
-        if (bugId>-1)usingBugId= String.valueOf(bugId);
-        else {
-            usingBugId =bugs.searchByName(bugName);
+
+        if (bugId >= 1) {
+            usingBugId = String.valueOf(bugId);
         }
-        devId=Integer.parseInt(usingDevId);
+        else {
+            usingBugId = bugs.searchByName(bugName);
+        }
+
+        devId = Integer.parseInt(usingDevId);
 
         // check if tha developer has a bug right now or not
-        String[] devInfo =fileManager.searchById(devId).split("-");
-        if(Integer.parseInt(devInfo[3])>0){
+        String[] devInfo = fileManager.searchById(devId).split("-");
+        if(Integer.parseInt(devInfo[3]) > 0){
             String[] bugInfo = bugs.searchById(Integer.parseInt(devInfo[3])).split("-");
             if(bugInfo[5].equals("false"))
                 return false;
@@ -64,17 +70,19 @@ public class Tester extends Person {
             return true;
         }
     }
-    public boolean defineBug(String bugName, String bugType,int bugLevel,int bugDate,boolean bugState,String projectName,int priority){
-        Bug bug = new Bug(bugName, bugType, bugLevel, bugDate, bugState,projectName,priority);
+    public boolean defineBug(String bugName, String bugType, int bugLevel, int bugDate, boolean bugState, String projectName, int priority){
+        Bug bug = new Bug(bugName, bugType, bugLevel, bugDate, bugState, projectName, priority);
         FileManager file = new FileManager("data\\users\\bug.txt");
         if(!file.searchByName(bug.getName()).equals("username NOT found")){
             return false;
         }
-        this.foundedBugs++;
-        FileManager tester= new FileManager("data\\users\\tester.txt");
-        String[] testerInfo=tester.searchById(this.getId()).split("-");
-        testerInfo[3]=String.valueOf(this.foundedBugs);
-        tester.update(String.valueOf(this.getId()),this.toString());
+
+        FileManager tester = new FileManager("data\\users\\tester.txt");
+        String[] testerInfo = tester.searchById(this.getId()).split("-");
+
+        testerInfo[3] = ++this.foundedBugs + "";
+        tester.update(String.valueOf(this.getId()), this.toString());
+
         file.append(bug.toString() + "\n", true);
         return true;
     }
@@ -92,11 +100,11 @@ public class Tester extends Person {
         return users;
     }
     public String toString() {
-        return super.getId() + "-" + super.getName() + "-" + super.getPassword() + "-" +this.foundedBugs;
+        return super.getId() + "-" + super.getName() + "-" + super.getPassword() + "-" + this.foundedBugs;
     }
 }
 
 /* tester.txt file
-    id-name-password
+    id-name-password-foundedBugs
     ...
  */
