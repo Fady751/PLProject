@@ -515,6 +515,35 @@ public class Main {
                     System.out.println(bug);
 
             }
+            if(ch == 3){
+                Scanner input= new Scanner(System.in);
+                System.out.print("Enter the id of the tester: ");
+                int id=input.nextInt();
+                String res = user.checkTesterperformance(id);
+                System.out.println("this tester discoverd " + res + "  bugs");
+
+            }
+            if(ch == 4){
+                Scanner input= new Scanner(System.in);
+                System.out.print("Enter the id of the developer: ");
+                int id=input.nextInt();
+                String res = user.checkDeveloperperformance(id);
+                int fixedBugs= Integer.parseInt(res);
+                FileManager fm = new FileManager("data\\users\\developer.txt");
+                String[] assignedBugs = fm.searchById(id).split("-");
+                int assigned_Bugs = Integer.parseInt(assignedBugs[3]);
+
+                if(fixedBugs>assigned_Bugs){
+                    System.out.println("this developer fixed "+fixedBugs+" he deserves a raise");
+                }
+
+                if(fixedBugs<assigned_Bugs){
+                    System.out.println("this developer only fixed "+fixedBugs+" from the assigned "+assigned_Bugs+" he should be fired");
+                }
+
+
+            }
+
             else if(ch == 0){
                 return;
             }

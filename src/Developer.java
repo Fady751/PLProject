@@ -1,4 +1,6 @@
 public class Developer extends Person {
+
+
     private int bugId;
     private int completedBugs;
 
