@@ -533,7 +533,7 @@ public class Main {
                 String[] assignedBugs = fm.searchById(id).split("-");
                 int assigned_Bugs = Integer.parseInt(assignedBugs[3]);
 
-                if(fixedBugs>assigned_Bugs){
+                if(fixedBugs>=assigned_Bugs){
                     System.out.println("this developer fixed "+fixedBugs+" he deserves a raise");
                 }
 
