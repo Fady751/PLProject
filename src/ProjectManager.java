@@ -60,15 +60,25 @@ public class ProjectManager extends Person {
     public String checkTesterperformance(int id ) {
         FileManager fm = new FileManager("data\\users\\tester.txt");
         String[] res = fm.searchById(id).split("-");
+        if(res[0].equals("NOT FOUND\n")){
+            return "this id was not found";
+        }
+        else {
 
-        return res[3];
+            return res[3];
+        }
     }
 
     public String checkDeveloperperformance(int id ) {
         FileManager fm = new FileManager("data\\users\\developer.txt");
         String[] res = fm.searchById(id).split("-");
+        if(res[0].equals("NOT FOUND\n")){
+            return "this id was not found";
+        }
+        else {
 
-        return res[4];
+            return res[4];
+        }
     }
 
 
