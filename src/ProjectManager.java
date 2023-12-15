@@ -72,6 +72,9 @@ public class ProjectManager extends Person {
         }
     }
 
+    public String toString() {
+        return super.getId() + "-" + super.getName() + "-" + super.getPassword() + "-" ;
+    }
 }
 /* ProjectManger.txt file
     id-name-password
