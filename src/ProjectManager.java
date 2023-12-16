@@ -24,24 +24,24 @@ public class ProjectManager extends Person {
 
     public String[] vewClosedBugs() {
         FileManager fm = new FileManager("data\\users\\bug.txt"); //create file object
-        String[] res = fm.getData();
-        String bugID = "";
-        for (String s : res) {
-            String[] line = s.split("-");
-            if ( line[5].equals("true")) {
-                bugID += line[0] + " " + line[1] + "\n";
+        String[] res = fm.getData(); //store bug data from file object fm into res
+        String bugID = "";//we will store the bug information in this empty string
+        for (String s : res) { //loop through res
+            String[] line = s.split("-"); //create an array of strings, every word that comes before '-' is a string
+            if ( line[5].equals("true")) {// if the attribute at the 5th locattion equals true
+                bugID += line[0] + " " + line[1] + "\n"; //store the attribute number 0 and 1 inside we used \n to split between the bugs
             }
         }
 
-        return bugID.split("\n");
+        return bugID.split("\n"); //here w split between the bugs using \n
     }
 
-    public String[] viewOpenBugs() {
+    public String[] viewOpenBugs() { //read the method above it has the same implemetation but reverse this condition  line[5].equals("true")
         FileManager fm = new FileManager("data\\users\\bug.txt");
         String[] res = fm.getData();
         String bugID = "";
         for (String s : res) {
-            String[] line = s.split("-");//id-name-type-level-date-state
+            String[] line = s.split("-");
             if (line[5].equals("false")) {
                 bugID += line[0] + " " + line[1] + "\n";
             }
@@ -52,24 +52,24 @@ public class ProjectManager extends Person {
     }
 
     public String checkTesterPerformance(int id) {
-        FileManager fm = new FileManager("data\\users\\tester.txt");
-        String[] res = fm.searchById(id).split("-");
+        FileManager fm = new FileManager("data\\users\\tester.txt"); //store the data inside a file object
+        String[] res = fm.searchById(id).split("-"); //split between the data, everytime we see the character '-' the word before it is stored as a string
         if(res[0].equals("NOT FOUND\n")){
             return "this id was not found";
         }
         else {
-            return res[3];
+            return res[3];     //return how many bugs this tster found
         }
     }
 
-    public String checkDeveloperPerformance(int id) {
+    public String checkDeveloperPerformance(int id) {//read the method above its the same but here we get the data of the dev
         FileManager fm = new FileManager("data\\users\\developer.txt");
         String[] res = fm.searchById(id).split("-");
         if(res[0].equals("NOT FOUND\n")){
             return "this id was not found";
         }
         else {
-            return res[4];
+            return res[4];         //return how many bugs this developer fixed
         }
     }
 
