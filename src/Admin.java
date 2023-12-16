@@ -88,9 +88,9 @@ public class Admin extends Person {
         FileManager fw = new FileManager("data//users//tester.txt");  // Create a FileManager object to handle file operation
         String[] arr = fw.getData();  // Get the data from the file
         for (String s : arr) {
-            String[] user = s.split("-");  // Split the line into an array using "-" as the delimiter
+            String[] user = s.split("-");  // Split the line into an array using the delim "-"
             if (1 < user.length && user[1].equals(name)) {
-                return false;  // If a tester with the same name already exists, returns false
+                return false;  // If a tester with the same name already exists
             }
         }
         Tester user = new Tester(name, password);  // Create a new Tester object
