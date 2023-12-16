@@ -7,19 +7,25 @@ import java.util.Scanner;
 public class FileManager {
 
     File file;
+
+    // Constructor to initialize the file ,takes the file path
     FileManager(String fileName) {
         file = new File(fileName);
         openFile();
     }
+
+    // Open the file; create if it doesn't exist
     private int openFile() {
         try {
             if(file.createNewFile())
-                return 1;
-            return 0;
+                return 1; // File created successfully
+            return 0;   // File already exists
         } catch (IOException e) {
-            return -1;
+            return -1;  // Error creating the file
         }
     }
+
+    // return data from the file as an array of strings
     public String[] getData() {
         String[] res = new String[0];
         try (Scanner input = new Scanner(file)) {
@@ -35,16 +41,20 @@ public class FileManager {
         }
         return res;
     }
+
+    // Append or overwrite data in the file using boolean append
     public void append(String s, boolean append) {
-        //false = erase all data in the file and store new data
-        //true = append to file
+        // false = erase all data in the file and store new data
+        // true = append to file
         try (FileWriter fw = new FileWriter(file, append)) {
             fw.append(s);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
-    public String searchByName(String name) { //////////////////////////////////////////
+
+    // Search for a record by name in the file and return the id
+    public String searchByName(String name) {
         name = name.toLowerCase();
         try {
             Scanner scanner = new Scanner(this.file);
@@ -53,15 +63,16 @@ public class FileManager {
                 line = scanner.nextLine();
                 String[] lineCon = line.split("-");
                 if (lineCon[1].toLowerCase().equals(name)) {
-                    return lineCon[0];
+                    return lineCon[0]; // Return the ID associated with the name
                 }
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
-        return "username NOT found";
+        return "Username NOT found";
     }
+
+    // Update a record in the file by ID
     public boolean update(String id, String lineUpdate){
         boolean founded = false;
         try {
@@ -82,9 +93,10 @@ public class FileManager {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
         return founded;
     }
+
+    // Delete a record in the file by ID
     public boolean delete(String id){
         boolean done = false;
         try {
@@ -104,11 +116,11 @@ public class FileManager {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
         return done;
     }
-    public String searchById(int id) { ///////////////////////////////////////
 
+    // Search for a record by ID in the file
+    public String searchById(int id) {
         try {
             Scanner scanner = new Scanner(this.file);
             String line;
@@ -116,13 +128,12 @@ public class FileManager {
                 line = scanner.nextLine();
                 String[] lineCon = line.split("-");
                 if (Integer.parseInt(lineCon[0]) == id) {
-                    return line;
+                    return line; // Return the entire record
                 }
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
         return "NOT FOUND\n";
     }
 }
