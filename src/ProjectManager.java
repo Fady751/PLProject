@@ -27,7 +27,7 @@ public class ProjectManager extends Person {
         String bugID = "";
         for (String s : res) {
             String[] line = s.split("-");
-            if (5 < res.length && line[5].equals("true")) {
+            if ( line[5].equals("true")) {
                 bugID += line[0] + " " + line[1] + "\n";
             }
         }
@@ -41,7 +41,7 @@ public class ProjectManager extends Person {
         String bugID = "";
         for (String s : res) {
             String[] line = s.split("-");//id-name-type-level-date-state
-            if (5 < res.length && line[5].equals("false")) {
+            if (line[5].equals("false")) {
                 bugID += line[0] + " " + line[1] + "\n";
             }
         }
