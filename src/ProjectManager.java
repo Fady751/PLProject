@@ -7,11 +7,12 @@ public class ProjectManager extends Person {
 
     public boolean login(String name, String password) {
         FileManager fw = new FileManager("data\\users\\ProjectManager.txt");
-        String[] arr = fw.getData();
-        for (String s : arr) {
-            String[] user = s.split("-");
+        String[] arr = fw.getData();         //get data from the file fw
+        for (String s : arr) {            //loop through the data we read
+            String[] user = s.split("-");  // split data into fields
             if (user.length > 2 && user[1].equals(name) && user[2].equals(password)) {
-                super.setId(Integer.parseInt(user[0]));
+                //set those attributes if data is correct
+                super.setId(Integer.parseInt(user[0])); //convert string to integer
                 super.setName(name);
                 super.setPassword(password);
                 super.setType("Project Manager");
@@ -22,7 +23,7 @@ public class ProjectManager extends Person {
     }
 
     public String[] vewClosedBugs() {
-        FileManager fm = new FileManager("data\\users\\bug.txt");
+        FileManager fm = new FileManager("data\\users\\bug.txt"); //create file object
         String[] res = fm.getData();
         String bugID = "";
         for (String s : res) {
