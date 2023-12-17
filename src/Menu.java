@@ -308,6 +308,7 @@ public class Menu {
             System.out.print("->");
             String userInput = input.nextLine().trim();
 
+            boolean ok = false;
             if (userInput.equals("1")) {
                 boolean bugState;
                 String bugName = "", bugType, projectName;
@@ -344,15 +345,17 @@ public class Menu {
                 System.out.println("Done :)");
 
             } else if (userInput.equals("2")) {
-                int res=4;
+                int res;
                 do {
-                    System.out.print("enter bugId or bugName: ");
+                    System.out.print("enter bugId or bugName (-1 to exit): ");
                     String bugName = "";
                     int bugId = -1;
                     try {
                         bugId = input.nextInt();
                         input.nextLine();
-
+                        if(bugId == -1) {
+                            break;
+                        }
                     } catch (Exception e) {
                         bugName = input.nextLine();
                     }
@@ -368,6 +371,7 @@ public class Menu {
                         devName = input.nextLine();
                     }
                     // -1 bugid or devid notFound || 0 dev hav a bug || 1 done || 2
+                    res= (user.assign(devId, bugId, devName, bugName));
                     if (res==-1){
                         System.out.println("BugId or DevId notFounded");
                         System.out.println("===============");
@@ -377,9 +381,10 @@ public class Menu {
                         System.out.println("===============");
 
                     }
-                    res= (user.assign(devId, bugId, devName, bugName));
+                    ok = res == 1;
                 }while (res!=1);
-                System.out.println("Done :)");
+                if(ok)
+                    System.out.println("Done :)");
             } else if (userInput.equals("3")) {
                 FileManager bugsFile = new FileManager("data//users//bug.txt");
                 String[] bugs = bugsFile.getData();
@@ -516,6 +521,7 @@ public class Menu {
             System.out.println("2-View all open bugs");
             System.out.println("3-check tester performance");
             System.out.println("4-check developer performance");
+            System.out.println("5-View all users");
             System.out.println("0-Exit");
 
             String ch = input.nextLine().trim();
@@ -555,7 +561,24 @@ public class Menu {
 
                   System.out.println("this developer fixed  "+ assigned_Bugs+" bugs");
                 }
-            } else if (ch.equals("0")) {
+            }
+            else if (ch.equals("5")) {
+                Admin[] ad = user.getAllAdmins();
+                Tester[] te = user.getAllTesters();
+                Developer[] de = user.getAllDevelopers();
+
+                System.out.println("id  |  name  |  Type");
+                for (Admin u : ad) {
+                    System.out.println(u.getId() + "   |  " + u.getName() + " |  " + u.getType());
+                }
+                for (Tester u : te) {
+                    System.out.println(u.getId() + "   |  " + u.getName() + "  |  " + u.getType());
+                }
+                for (Developer u : de) {
+                    System.out.println(u.getId() + "   |  " + u.getName() + "  |  " + u.getType());
+                }
+            }
+            else if (ch.equals("0")) {
                 return;
             } else {
                 System.out.println("invalid input :(");

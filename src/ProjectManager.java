@@ -76,6 +76,48 @@ public class ProjectManager extends Person {
     public String toString() {
         return super.getId() + "-" + super.getName() + "-" + super.getPassword() + "-" ;
     }
+
+    public Admin[] getAllAdmins() {
+        FileManager fw = new FileManager("data//users//admin.txt");  // Create a FileManager object to handle file operations
+        String[] arr = fw.getData();  // Get the data from the file
+        if (arr[0].isEmpty())
+            return new Admin[0];  // If the file is empty, returns an empty array
+        Admin[] users = new Admin[arr.length];  // Create an array of Admin objects
+        for (int i = 0; i < arr.length; i++) {
+            String[] user = arr[i].split("-");  // Split the line into an array using "-" as the delimiter
+            users[i] = new Admin(Integer.parseInt(user[0]), user[1], user[2]);  // Create a new Admin object and adds it to  the array
+        }
+        return users;
+    }
+
+    // Same thing as getAlladmins()
+    public Tester[] getAllTesters() {
+        FileManager fw = new FileManager("data//users//tester.txt");
+        String[] arr = fw.getData();
+        if (arr[0].isEmpty())
+            return new Tester[0];
+        Tester[] users = new Tester[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            String[] user = arr[i].split("-"); //id-name-pass
+            users[i] = new Tester(Integer.parseInt(user[0]), user[1], user[2],0);
+        }
+        return users;
+    }
+
+    // Same thing as getAlladmins()
+    public Developer[] getAllDevelopers() {
+        FileManager fw = new FileManager("data//users//developer.txt");
+        String[] arr = fw.getData();
+        if (arr[0].isEmpty())
+            return new Developer[0];
+        Developer[] users = new Developer[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            String[] user = arr[i].split("-"); //id-name-pass
+            users[i] = new Developer(Integer.parseInt(user[0]), user[1], user[2],0);
+        }
+        return users;
+    }
+
 }
 /* ProjectManger.txt file
     id-name-password
