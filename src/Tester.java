@@ -29,7 +29,7 @@ public class Tester extends Person {
         }
         return false;
     }
-    public boolean assign(int devId, int bugId, String devName, String bugName){
+    public int assign(int devId, int bugId, String devName, String bugName){
         FileManager fileManager= new FileManager("data\\users\\developer.txt");
         FileManager bugs = new FileManager("data\\users\\bug.txt");
 
@@ -39,6 +39,9 @@ public class Tester extends Person {
         }
         else{
             usingDevId= fileManager.searchByName(devName);
+            if (usingDevId.equals("Username NOT found")){
+                return -1;
+            }
         }
 
         if (bugId >= 1) {
@@ -46,6 +49,9 @@ public class Tester extends Person {
         }
         else {
             usingBugId = bugs.searchByName(bugName);
+            if (usingBugId.equals("Username NOT found")){
+                return -1;
+            }
         }
 
         devId = Integer.parseInt(usingDevId);
@@ -55,19 +61,19 @@ public class Tester extends Person {
         if(Integer.parseInt(devInfo[3]) > 0){
             String[] bugInfo = bugs.searchById(Integer.parseInt(devInfo[3])).split("-");
             if(bugInfo[5].equals("false"))
-                return false;
+                return 0;
             else{
                 Developer dev = new Developer(fileManager.searchById(devId),Integer.parseInt(usingBugId));
                 dev.setBugId(Integer.parseInt(usingBugId));
                 fileManager.update(usingDevId,dev.toString());
-                return true;
+                return 1;
             }
-        }
+        }// -1 bugid or devid notFound || 0 dev hav a bug || 1 done || 2
         else{
             Developer dev=new Developer(fileManager.searchById(devId),Integer.parseInt(usingBugId));
             dev.setBugId(Integer.parseInt(usingBugId));
             fileManager.update(usingDevId,dev.toString());
-            return true;
+            return 1;
         }
     }
     public boolean defineBug(String bugName, String bugType, int bugLevel, int bugDate, boolean bugState, String projectName, int priority){

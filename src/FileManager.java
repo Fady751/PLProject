@@ -67,9 +67,8 @@ public class FileManager {
                 }
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        return "Username NOT found";
+            return "Username NOT found";
+        }        return "Username NOT found";
     }
 
     // Update a record in the file by ID

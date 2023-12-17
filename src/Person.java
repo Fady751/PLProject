@@ -55,7 +55,7 @@ public abstract class Person {
         this.name = name;
     }
 
-    public boolean login() {
+    public boolean login(String name, String password) {
         return false;
     }
 

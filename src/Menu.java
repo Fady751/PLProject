@@ -1,85 +1,33 @@
 import java.util.Scanner;
 
-public class menu {
+public class Menu {
     private static Scanner input = new Scanner(System.in);
 
-    public void menu() {
+     static public int mainMenu() {
         while (true) {
             System.out.println("===============\nLogin to \n1-Admin\n2-Tester\n3-Developer\n4-Project Manager\n0-Exit\n===============");
             System.out.print("Choose 1 or 2 or 3 or 4 or 0: ");
             String ch = input.nextLine().trim();
-
-            if (ch.equals("1")) {
-                Admin user = new Admin();
-                while (!user.loggedIn()) {
-                    System.out.print("user name: ");
-                    String name = input.nextLine();
-                    System.out.print("password: ");
-                    String password = input.nextLine();
-                    if (user.login(name, password)) {
-                        System.out.println("Welcome, " + name + " you have been logged in successfully.");
-                    } else {
-                        System.out.println("Wrong user name or password please try again.");
-                    }
-                }
-                adminPage(user);
-            } else if (ch.equals("2")) {
-                Tester user = new Tester();
-
-                while (!user.loggedIn()) {
-                    System.out.print("user name: ");
-                    String name = input.nextLine();
-
-                    System.out.print("password: ");
-                    String password = input.nextLine();
-                    if (user.login(name, password)) {
-                        System.out.println("Welcome, " + name + " you have been logged in successfully.");
-                    } else {
-                        System.out.println("Wrong user name or password please try again.");
-                    }
-                }
-                testerPage(user);
-            } else if (ch.equals("3")) {
-                Developer user = new Developer();
-
-                while (!user.loggedIn()) {
-                    System.out.print("user name: ");
-                    String name = input.nextLine();
-
-                    System.out.print("password: ");
-                    String password = input.nextLine();
-                    if (user.login(name, password)) {
-                        System.out.println("Welcome, " + name + " you have been logged in successfully.");
-                    } else {
-                        System.out.println("Wrong user name or password please try again.");
-                    }
-                }
-                developerPage(user);
-            } else if (ch.equals("4")) {
-                ProjectManager user = new ProjectManager();
-
-                while (!user.loggedIn()) {
-                    System.out.print("user name: ");
-                    String name = input.nextLine();
-
-                    System.out.print("password: ");
-                    String password = input.nextLine();
-                    if (user.login(name, password)) {
-                        System.out.println("Welcome, " + name + " you have been logged in successfully.");
-                    } else {
-                        System.out.println("Wrong user name or password please try again.");
-                    }
-                }
-                ProjectManagerPage(user);
-
-            } else if (ch.equals("0")) {
-                System.out.println("Bye :)");
-                break;
-            } else {
-                System.out.println("invalid input :(");
-            }
+            int inp=Integer.parseInt(ch);
+            if(inp<=4 && inp>= 0)return inp;
+            System.out.println("invalid input :(");
         }
     }
+    static public Admin adminLogin(){
+            Admin user = new Admin();
+            while (!user.loggedIn()) {
+                System.out.print("user name: ");
+                String name = input.nextLine();
+                System.out.print("password: ");
+                String password = input.nextLine();
+                if (user.login(name, password)) {
+                    System.out.println("Welcome, " + name + " you have been logged in successfully.");
+                } else {
+                    System.out.println("Wrong user name or password please try again.");
+                }
+            }
+            return user;
+        }
 
     static public void adminPage (Admin user){
         while (true) {
@@ -116,7 +64,8 @@ public class menu {
                     System.out.println("Bug priority: " + data[4]);
                     System.out.println("=======================================================");
                 }
-            } else if (ch.equals("2")) {
+            }
+            else if (ch.equals("2")) {
                 Admin[] ad = user.getAllAdmins();
                 Tester[] te = user.getAllTesters();
                 Developer[] de = user.getAllDevelopers();
@@ -144,6 +93,24 @@ public class menu {
             }
         }
     }
+
+    static public Tester testerLogin(){
+        Tester user = new Tester();
+        while (!user.loggedIn()) {
+            System.out.print("user name: ");
+            String name = input.nextLine();
+
+            System.out.print("password: ");
+            String password = input.nextLine();
+            if (user.login(name, password)) {
+                System.out.println("Welcome, " + name + " you have been logged in successfully.");
+            } else {
+                System.out.println("Wrong user name or password please try again.");
+            }
+        }
+        return user;
+    }
+
 
     static void addUser (Admin user){
         while (true) {
@@ -377,33 +344,42 @@ public class menu {
                 System.out.println("Done :)");
 
             } else if (userInput.equals("2")) {
-                System.out.print("enter bugId or bugName: ");
-                String bugName = "";
-                int bugId = -1;
-                try {
-                    bugId = input.nextInt();
-                    input.nextLine();
+                int res=4;
+                do {
+                    System.out.print("enter bugId or bugName: ");
+                    String bugName = "";
+                    int bugId = -1;
+                    try {
+                        bugId = input.nextInt();
+                        input.nextLine();
 
-                } catch (Exception e) {
-                    bugName = input.nextLine();
-                }
+                    } catch (Exception e) {
+                        bugName = input.nextLine();
+                    }
 
-                System.out.print("enter dev or devName: ");
-                String devName = "";
-                int devId = -1;
-                try {
-                    devId = input.nextInt();
-                    input.nextLine();
+                    System.out.print("enter dev or devName: ");
+                    String devName = "";
+                    int devId = -1;
+                    try {
+                        devId = input.nextInt();
+                        input.nextLine();
 
-                } catch (Exception e) {
-                    devName = input.nextLine();
-                }
-                if (user.assign(devId, bugId, devName, bugName)) {
-                    System.out.println("Done :)");
-                } else {
-                    System.out.println("this dev have a bug right now");
-                }
-                System.out.println("===============");
+                    } catch (Exception e) {
+                        devName = input.nextLine();
+                    }
+                    // -1 bugid or devid notFound || 0 dev hav a bug || 1 done || 2
+                    if (res==-1){
+                        System.out.println("BugId or DevId notFounded");
+                        System.out.println("===============");
+                    }
+                    else if(res==0){
+                        System.out.println("this dev have a bug right now");
+                        System.out.println("===============");
+
+                    }
+                    res= (user.assign(devId, bugId, devName, bugName));
+                }while (res!=1);
+                System.out.println("Done :)");
             } else if (userInput.equals("3")) {
                 FileManager bugsFile = new FileManager("data//users//bug.txt");
                 String[] bugs = bugsFile.getData();
@@ -444,6 +420,22 @@ public class menu {
         }
     }
 
+    static public Developer developerLogin(){
+        Developer user = new Developer();
+        while (!user.loggedIn()) {
+            System.out.print("user name: ");
+            String name = input.nextLine();
+
+            System.out.print("password: ");
+            String password = input.nextLine();
+            if (user.login(name, password)) {
+                System.out.println("Welcome, " + name + " you have been logged in successfully.");
+            } else {
+                System.out.println("Wrong user name or password please try again.");
+            }
+        }
+        return user;
+}
     static public void developerPage (Developer user){
         while (true) {
             System.out.println("1-view assigned bugs");
@@ -501,8 +493,24 @@ public class menu {
             }
         }
     }
+    static public ProjectManager projectMangerLogin(){
+        ProjectManager user = new ProjectManager();
 
-    static public void ProjectManagerPage (ProjectManager user){
+        while (!user.loggedIn()) {
+            System.out.print("user name: ");
+            String name = input.nextLine();
+
+            System.out.print("password: ");
+            String password = input.nextLine();
+            if (user.login(name, password)) {
+                System.out.println("Welcome, " + name + " you have been logged in successfully.");
+            } else {
+                System.out.println("Wrong user name or password please try again.");
+            }
+        }
+        return user;
+    }
+    static public void projectManagerPage (ProjectManager user){
         while (true) {
             System.out.println("1-View all closed bugs");
             System.out.println("2-View all open bugs");
