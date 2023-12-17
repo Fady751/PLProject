@@ -58,7 +58,7 @@ public class ProjectManager extends Person {
             return "this id was not found";
         }
         else {
-            return res[3];     //return how many bugs this tster found
+            return res[3];     //return how many bugs this tester found
         }
     }
 

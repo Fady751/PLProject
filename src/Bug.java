@@ -150,3 +150,7 @@ class Bug {
         this.priority=priority;
     }
 }
+/* bug.txt file
+    id-name-type-level-date-state-project-priority
+    ...
+ */
