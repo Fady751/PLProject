@@ -49,7 +49,7 @@ public class Admin extends Person {
         Admin[] users = new Admin[arr.length];  // Create an array of Admin objects
         for (int i = 0; i < arr.length; i++) {
             String[] user = arr[i].split("-");  // Split the line into an array using "-" as the delimiter
-            users[i] = new Admin(Integer.parseInt(user[0]), user[1], user[2]);  // Create a new Admin object and adds it to the array
+            users[i] = new Admin(Integer.parseInt(user[0]), user[1], user[2]);  // Create a new Admin object and adds it to  the array
         }
         return users;
     }
