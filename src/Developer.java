@@ -150,22 +150,22 @@ public class Developer extends Person {
     // change bug status method after fixing
     public boolean changeStatus(String id){
         this.completedBugs++;
-        FileManager bugs = new FileManager("data//users//bug.txt");
-        FileManager dev = new FileManager("data//users//developer.txt");
+        FileManager bugs = new FileManager("data//users//bug.txt"); // to open bug file
+        FileManager dev = new FileManager("data//users//developer.txt");//to open dev file
 
-        int intId = Integer.parseInt(id); // to use in bug info
-        String[] bugInfo = bugs.searchById(intId).split("-");
-        if(7 >= bugInfo.length)
+        int intId = Integer.parseInt(id); // change bug id to integer
+        String[] bugInfo = bugs.searchById(intId).split("-");// goes to bug file to search for id
+        if(7 >= bugInfo.length) // to make sure nothing wrong is stored
             return false;
 
         String bugAfterChange = bugInfo[0] + "-" + bugInfo[1] + "-" + bugInfo[2] + "-" + bugInfo[3] + "-" + bugInfo[4] + "-true-" + bugInfo[6] + "-" + bugInfo[7];
+        // convert it as file format
+        String[] devInfo = dev.searchById(super.getId()).split("-"); //search for dev info
 
-        String[] devInfo = dev.searchById(super.getId()).split("-");
-
-        devInfo[4] = String.valueOf(this.completedBugs);
+        devInfo[4] = String.valueOf(this.completedBugs); //convert no of bugs as string
 
         String devAfterChange = devInfo[0] + "-" + devInfo[1] + "-" + devInfo[2] + "-" + devInfo[3] + "-" + devInfo[4];
-
+        //convert as file format
         //update dev and bug
         return bugs.update(id, bugAfterChange) && dev.update(String.valueOf(super.getId()), devAfterChange);
 
